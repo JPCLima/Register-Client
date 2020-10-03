@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+import sqlite3
 
 root = Tk()
 
@@ -17,6 +18,27 @@ class Functions():
         self.phone_entry.delete(0, END)
         self.address_entry.delete(0, END)
         self.city_entry.delete(0, END)
+
+    def connect_db(self):
+        self.conn = sqlite3.connect("clients.db")
+        self.cursor = self.conn.cursor()
+
+    def disconnect_db(self):
+        self.conn.close()
+
+    def create_table(self):
+        self.connect_db()
+        # Create table
+        self.cursor.execute(""" 
+                                CREATE TABLE IF NOT EXISTS clients (
+                                    id INTEGER PRIMARY KEY,
+                                    name_client CHAR(40) NOT NULL,
+                                    phone_number INTEGER(20),
+                                    address CHAR(40),
+                                    city CHAR(40)
+                                ); """)
+        self.conn.commit()
+        self.disconnect_db()
 
 
 class Aplication(Functions):
@@ -36,6 +58,7 @@ class Aplication(Functions):
         self.root.resizable(True, True)
         self.root.maxsize(width=900, height=700)
         self.root.minsize(width=600, height=400)
+        self.create_table()
 
     def frame_window(self):
         # Frame 1
