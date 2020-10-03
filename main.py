@@ -8,9 +8,9 @@ root = tix.Tk()
 
 BG_COLOR = '#173F5F'
 FRAME_COLOR = '#E0DFD5'
-BTN_FONT_BOLD = ('Helvetica', 8, 'bold')
-BTN_FONT_NORMAL = ('Helvetica', 8)
-BTN_FONT_NORMAL = ('Helvetica', 8)
+BTN_FONT_BOLD = ('Helvetica', 9, 'bold')
+BTN_FONT_NORMAL = ('Helvetica', 9)
+BTN_FONT_NORMAL = ('Helvetica', 9)
 
 
 class Functions():
@@ -97,15 +97,22 @@ class Functions():
 
     def delete_client(self):
         self.get_variables()
-        self.connect_db()
 
-        self.cursor.execute(""" 
-                                DELETE FROM clients WHERE id = ? """, (self.id))
-        self.conn.commit()
+        # Msg box if there is not name
+        if self.id_entry.get() == "":
+            msg = "To delete a client \n"
+            msg += "you need to select the cliend ID"
+            messagebox.showinfo("Sign in delete Cleint - Warning!!!", msg)
+        else:
+            self.connect_db()
 
-        self.disconnect_db()
-        self.clean_canvas()
-        self.select_list()
+            self.cursor.execute(""" 
+                                    DELETE FROM clients WHERE id = ? """, (self.id))
+            self.conn.commit()
+
+            self.disconnect_db()
+            self.clean_canvas()
+            self.select_list()
 
     def edit_client(self):
         self.get_variables()
@@ -182,7 +189,7 @@ class Aplication(Functions, Validation):
         self.root.geometry("700x600")
         self.root.resizable(True, True)
         self.root.maxsize(width=900, height=700)
-        self.root.minsize(width=600, height=400)
+        self.root.minsize(width=600, height=500)
         self.create_table()
 
     def frame_window(self):
@@ -216,17 +223,17 @@ class Aplication(Functions, Validation):
         # New btn
         self.btn_new = Button(
             self.frame_1, text=text_label[2], bd=2, font=BTN_FONT_BOLD, command=self.add_client)
-        self.btn_new.place(relx=0.5, rely=0.1, relwidth=0.1, relheight=0.1)
+        self.btn_new.place(relx=0.25, rely=0.8, relwidth=0.1, relheight=0.1)
 
         # Edit btn
         self.btn_edit = Button(
             self.frame_1, text=text_label[3], bd=2,  font=BTN_FONT_NORMAL, command=self.edit_client)
-        self.btn_edit.place(relx=0.6, rely=0.1, relwidth=0.1, relheight=0.1)
+        self.btn_edit.place(relx=0.45, rely=0.8, relwidth=0.1, relheight=0.1)
 
         # Delete btn
         self.btn_delete = Button(
             self.frame_1, text=text_label[4], bd=2, font=BTN_FONT_NORMAL, command=self.delete_client)
-        self.btn_delete.place(relx=0.7, rely=0.1, relwidth=0.1, relheight=0.1)
+        self.btn_delete.place(relx=0.65, rely=0.8, relwidth=0.1, relheight=0.1)
 
         # Label and Entry
         # ID - label and entry
