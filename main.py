@@ -123,19 +123,34 @@ class Functions():
     def search_client(self):
         self.connect_db()
         self.listClients.delete(*self.listClients.get_children())
+
         self.name_entry.insert(END, '%')
         name = self.name_entry.get()
+        self.id_entry.insert(END, '%')
+        id_int = self.id_entry.get()
 
-        self.cursor.execute(""" 
-                                SELECT id, name_client, phone_number, address, city
-                                FROM clients WHERE name_client LIKE '%s' ORDER BY name_client ASC""" % name)
+        if id_int != "":
+            self.cursor.execute(""" 
+                                    SELECT id, name_client, phone_number, address, city
+                                    FROM clients WHERE id = '%d' ORDER BY name_client ASC""" % int(id_int))
 
-        search_client_name = self.cursor.fetchall()
-        for i in search_client_name:
-            self.listClients.insert("", END, values=i)
+            search_client_id = self.cursor.fetchall()
+            for i in search_client_id:
+                self.listClients.insert("", END, values=i)
 
-        self.clean_canvas()
-        self.disconnect_db()
+            self.clean_canvas()
+            self.disconnect_db()
+        elif name != "":
+            self.cursor.execute(""" 
+                                    SELECT id, name_client, phone_number, address, city
+                                    FROM clients WHERE name_client LIKE '%s' ORDER BY name_client ASC""" % name)
+
+            search_client_name = self.cursor.fetchall()
+            for i in search_client_name:
+                self.listClients.insert("", END, values=i)
+
+            self.clean_canvas()
+            self.disconnect_db()
 
 
 class Validation():
