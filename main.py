@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import tix
+from tkinter import messagebox
 import sqlite3
 
 root = tix.Tk()
@@ -52,15 +53,21 @@ class Functions():
     def add_client(self):
 
         self.get_variables()
-        self.connect_db()
 
-        self.cursor.execute("""  
-                                INSERT INTO clients 
-                                (name_client, phone_number, address, city)
-                                VALUES (?,?,?,?)""", (self.name, self.phone, self.address, self.city))
-        self.conn.commit()
-        self.disconnect_db()
-        self.select_list()
+        # Msg box if there is not name
+        if self.name_entry.get() == "":
+            msg = "To insert a new client \n"
+            msg += "you need to enter at least the name"
+            messagebox.showinfo("Sign in new Cleint - Warning!!!", msg)
+        else:
+            self.connect_db()
+            self.cursor.execute("""  
+                                    INSERT INTO clients 
+                                    (name_client, phone_number, address, city)
+                                    VALUES (?,?,?,?)""", (self.name, self.phone, self.address, self.city))
+            self.conn.commit()
+            self.disconnect_db()
+            self.select_list()
 
     def select_list(self):
         # Clean old list
@@ -104,8 +111,7 @@ class Functions():
         self.get_variables()
         self.connect_db()
 
-        self.cursor.execute(""" 
-                                UPDATE clients 
+        self.cursor.execute(""" UPDATE clients
                                 SET name_client = ?, phone_number=?, address=?, city=? WHERE id = ?  """,
                             (self.name, self.phone, self.address, self.city, self.id))
         self.conn.commit()
@@ -132,10 +138,22 @@ class Functions():
         self.disconnect_db()
 
 
-class Aplication(Functions):
+class Validation():
+    def valid_client_id(self, text):
+        if text == "":
+            return True
+        try:
+            value = int(text)
+        except ValueError:
+            return False
+        return 0 <= value <= 100
+
+
+class Aplication(Functions, Validation):
 
     def __init__(self):
         self.root = root
+        self.validation_entries()
         self.canvas()
         self.frame_window()
         self.widgets_frame1()
@@ -201,7 +219,8 @@ class Aplication(Functions):
             self.frame_1, text=text_label[5], bg=FRAME_COLOR)
         self.label_id.place(relx=0.01, rely=0.0, relwidth=0.1)
 
-        self.id_entry = Entry(self.frame_1)
+        self.id_entry = Entry(self.frame_1, validate="key",
+                              validatecommand=self.validate_cmd)
         self.id_entry.place(relx=0.05, rely=0.1,
                             relwidth=0.1)
 
@@ -276,6 +295,10 @@ class Aplication(Functions):
                               relwidth=0.04, relheight=0.85)
 
         self.listClients.bind("<Double-1>", self.double_click)
+
+    def validation_entries(self):
+        self.validate_cmd = (self.root.register(
+            self.valid_client_id), '%P')
 
 
 Aplication()
