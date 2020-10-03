@@ -2,7 +2,11 @@
 
 This is a simple App where we can insert Clients into the database using Tkinter libary.
 
-Features:
+Libaries use: 
+* tkinter 
+* sqlite3
+  
+**Features**:
 * Add client
 * Delete client
 * Search for client:
