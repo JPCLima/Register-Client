@@ -12,6 +12,14 @@ BTN_FONT_NORMAL = ('Helvetica', 8)
 
 
 class Functions():
+
+    def get_variables(self):
+        self.id = self.id_entry.get()
+        self.name = self.name_entry.get()
+        self.phone = self.phone_entry.get()
+        self.address = self.address_entry.get()
+        self.city = self.city_entry.get()
+
     def clean_canvas(self):
         self.id_entry.delete(0, END)
         self.name_entry.delete(0, END)
@@ -41,12 +49,8 @@ class Functions():
         self.disconnect_db()
 
     def add_client(self):
-        self.id = self.id_entry.get()
-        self.name = self.name_entry.get()
-        self.phone = self.phone_entry.get()
-        self.address = self.address_entry.get()
-        self.city = self.city_entry.get()
 
+        self.get_variables()
         self.connect_db()
 
         self.cursor.execute("""  
@@ -70,6 +74,30 @@ class Functions():
         for client in list_clients:
             self.listClients.insert("", END, values=client)
         self.disconnect_db()
+
+    def double_click(self, event):
+        self.clean_canvas()
+        self.listClients.selection()
+
+        for i in self.listClients.selection():
+            col1, col2, col3, col4, col5 = self.listClients.item(i, 'values')
+            self.id_entry.insert(END, col1)
+            self.name_entry.insert(END, col2)
+            self.phone_entry.insert(END, col3)
+            self.address_entry.insert(END, col4)
+            self.city_entry.insert(END, col5)
+
+    def delete_client(self):
+        self.get_variables()
+        self.connect_db()
+
+        self.cursor.execute(""" 
+                                DELETE FROM clients WHERE id = ? """, (self.id))
+        self.conn.commit()
+
+        self.disconnect_db()
+        self.clean_canvas()
+        self.select_list()
 
 
 class Aplication(Functions):
@@ -128,7 +156,7 @@ class Aplication(Functions):
 
         # Delete btn
         self.btn_delete = Button(
-            self.frame_1, text=text_label[4], bd=2, font=BTN_FONT_NORMAL)
+            self.frame_1, text=text_label[4], bd=2, font=BTN_FONT_NORMAL, command=self.delete_client)
         self.btn_delete.place(relx=0.7, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # Label and Entry
@@ -210,6 +238,8 @@ class Aplication(Functions):
         self.listClients.configure(yscroll=self.scroll_bar.set)
         self.scroll_bar.place(relx=0.96, rely=0.1,
                               relwidth=0.04, relheight=0.85)
+
+        self.listClients.bind("<Double-1>", self.double_click)
 
 
 Aplication()
