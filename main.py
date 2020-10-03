@@ -289,23 +289,24 @@ class Aplication(Functions, Validation):
     def treen_view(self):
 
         self.listClients = ttk.Treeview(
-            self.frame_2, height=3, columns=('col1', 'col2', 'col3', 'col4', 'col5'))
-        # Create the haeders
-        self.listClients.heading('#0', text='')
-        self.listClients.heading('#1', text='ID')
-        self.listClients.heading('#2', text='Name')
-        self.listClients.heading('#3', text='Phone')
-        self.listClients.heading('#4', text='Address')
-        self.listClients.heading('#5', text='City')
+            self.frame_2, height=3, columns=('col1', 'col2', 'col3', 'col4', 'col5'), selectmode="browse")
 
         # Create the With of each column
-        self.listClients.column("#0", width=1)
-        self.listClients.column("#1", width=50)
-        self.listClients.column("#2", width=100)
-        self.listClients.column("#3", width=100)
-        self.listClients.column("#4", width=100)
-        self.listClients.column("#4", width=100)
-        self.listClients.column("#5", width=100)
+        self.listClients.column("#0", width=10, minwidth=25, stretch=False)
+        self.listClients.column("#1", width=100, minwidth=80, stretch=False)
+        self.listClients.column("#2", width=100, minwidth=80, stretch=False)
+        self.listClients.column("#3", width=100, minwidth=80, stretch=False)
+        self.listClients.column("#4", width=100, minwidth=80, stretch=False)
+        self.listClients.column("#4", width=100, minwidth=80, stretch=False)
+        self.listClients.column("#5", width=50, minwidth=80, stretch=False)
+
+        # Create the haeders
+        self.listClients.heading('#0', text='', anchor=tix.W)
+        self.listClients.heading('#1', text='ID', anchor=tix.W)
+        self.listClients.heading('#2', text='Name', anchor=tix.W)
+        self.listClients.heading('#3', text='Phone', anchor=tix.W)
+        self.listClients.heading('#4', text='Address', anchor=tix.W)
+        self.listClients.heading('#5', text='City', anchor=tix.W)
 
         self.listClients.place(
             relx=0.01, rely=0.1, relwidth=0.95, relheight=0.85)
