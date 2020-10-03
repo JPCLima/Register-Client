@@ -10,7 +10,16 @@ BTN_FONT_NORMAL = ('Helvetica', 8)
 BTN_FONT_NORMAL = ('Helvetica', 8)
 
 
-class Aplication():
+class Functions():
+    def clean_canvas(self):
+        self.id_entry.delete(0, END)
+        self.name_entry.delete(0, END)
+        self.phone_entry.delete(0, END)
+        self.address_entry.delete(0, END)
+        self.city_entry.delete(0, END)
+
+
+class Aplication(Functions):
 
     def __init__(self):
         self.root = root
@@ -43,8 +52,9 @@ class Aplication():
 
         # Clean btn
         self.btn_clean = Button(
-            self.frame_1, text=text_label[0], bd=2, font=BTN_FONT_NORMAL)
-        self.btn_clean.place(relx=0.2, rely=0.1, relwidth=0.1, relheight=0.1)
+            self.frame_1, text=text_label[0], bd=2, font=BTN_FONT_NORMAL, command=self.clean_canvas)
+        self.btn_clean.place(relx=0.2, rely=0.1, relwidth=0.1,
+                             relheight=0.1)
 
         # Seach btn
         self.btn_clean = Button(
@@ -52,29 +62,29 @@ class Aplication():
         self.btn_clean.place(relx=0.3, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # New btn
-        self.btn_clean = Button(
+        self.btn_new = Button(
             self.frame_1, text=text_label[2], bd=2, font=BTN_FONT_BOLD)
-        self.btn_clean.place(relx=0.5, rely=0.1, relwidth=0.1, relheight=0.1)
+        self.btn_new.place(relx=0.5, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # Edit btn
-        self.btn_clean = Button(
+        self.btn_edit = Button(
             self.frame_1, text=text_label[3], bd=2,  font=BTN_FONT_NORMAL)
-        self.btn_clean.place(relx=0.6, rely=0.1, relwidth=0.1, relheight=0.1)
+        self.btn_edit.place(relx=0.6, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # Delete btn
-        self.btn_clean = Button(
+        self.btn_delete = Button(
             self.frame_1, text=text_label[4], bd=2, font=BTN_FONT_NORMAL)
-        self.btn_clean.place(relx=0.7, rely=0.1, relwidth=0.1, relheight=0.1)
+        self.btn_delete.place(relx=0.7, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # Label and Entry
         # ID - label and entry
-        self.label_name = Label(
+        self.label_id = Label(
             self.frame_1, text=text_label[5], bg=FRAME_COLOR)
-        self.label_name.place(relx=0.01, rely=0.0, relwidth=0.1)
+        self.label_id.place(relx=0.01, rely=0.0, relwidth=0.1)
 
-        self.name_entry = Entry(self.frame_1)
-        self.name_entry.place(relx=0.05, rely=0.1,
-                              relwidth=0.1)
+        self.id_entry = Entry(self.frame_1)
+        self.id_entry.place(relx=0.05, rely=0.1,
+                            relwidth=0.1)
 
         # Name - label and entry
         self.label_name = Label(
@@ -87,33 +97,33 @@ class Aplication():
                               relwidth=0.7)
 
         # Phone - label and entry
-        self.label_name = Label(
+        self.label_phone = Label(
             self.frame_1, text=text_label[7], bg=FRAME_COLOR)
-        self.label_name.place(relx=0.789, rely=0.3,
-                              relwidth=0.15)
+        self.label_phone.place(relx=0.789, rely=0.3,
+                               relwidth=0.15)
 
-        self.name_entry = Entry(self.frame_1)
-        self.name_entry.place(relx=0.8, rely=0.4,
-                              relwidth=0.15)
+        self.phone_entry = Entry(self.frame_1)
+        self.phone_entry.place(relx=0.8, rely=0.4,
+                               relwidth=0.15)
 
         # Address - label and entry
-        self.label_name = Label(
+        self.label_address = Label(
             self.frame_1, text=text_label[8], bg=FRAME_COLOR)
-        self.label_name.place(relx=0.038, rely=0.5,
-                              relwidth=0.1)
+        self.label_address.place(relx=0.038, rely=0.5,
+                                 relwidth=0.1)
 
-        self.name_entry = Entry(self.frame_1)
-        self.name_entry.place(relx=0.05, rely=0.6,
-                              relwidth=0.7)
+        self.address_entry = Entry(self.frame_1)
+        self.address_entry.place(relx=0.05, rely=0.6,
+                                 relwidth=0.7)
 
         # City - label and entry
-        self.label_name = Label(
+        self.label_city = Label(
             self.frame_1, text=text_label[9], bg=FRAME_COLOR)
-        self.label_name.place(relx=0.767, rely=0.5,
+        self.label_city.place(relx=0.767, rely=0.5,
                               relwidth=0.1)
 
-        self.name_entry = Entry(self.frame_1)
-        self.name_entry.place(relx=0.8, rely=0.6,
+        self.city_entry = Entry(self.frame_1)
+        self.city_entry.place(relx=0.8, rely=0.6,
                               relwidth=0.15)
 
     def treen_view(self):
