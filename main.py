@@ -40,6 +40,37 @@ class Functions():
         self.conn.commit()
         self.disconnect_db()
 
+    def add_client(self):
+        self.id = self.id_entry.get()
+        self.name = self.name_entry.get()
+        self.phone = self.phone_entry.get()
+        self.address = self.address_entry.get()
+        self.city = self.city_entry.get()
+
+        self.connect_db()
+
+        self.cursor.execute("""  
+                                INSERT INTO clients 
+                                (name_client, phone_number, address, city)
+                                VALUES (?,?,?,?)""", (self.name, self.phone, self.address, self.city))
+        self.conn.commit()
+        self.disconnect_db()
+        self.select_list()
+
+    def select_list(self):
+        # Clean old list
+        self.listClients.delete(*self.listClients.get_children())
+        # Upadate client list
+        self.connect_db()
+        list_clients = self.cursor.execute("""  
+                                                SELECT id, name_client, phone_number, address, city
+                                                FROM clients
+                                                ORDER BY name_client ASC;
+                                                """)
+        for client in list_clients:
+            self.listClients.insert("", END, values=client)
+        self.disconnect_db()
+
 
 class Aplication(Functions):
 
@@ -49,6 +80,7 @@ class Aplication(Functions):
         self.frame_window()
         self.widgets_frame1()
         self.treen_view()
+        self.select_list()
         root.mainloop()
 
     def canvas(self):
@@ -86,7 +118,7 @@ class Aplication(Functions):
 
         # New btn
         self.btn_new = Button(
-            self.frame_1, text=text_label[2], bd=2, font=BTN_FONT_BOLD)
+            self.frame_1, text=text_label[2], bd=2, font=BTN_FONT_BOLD, command=self.add_client)
         self.btn_new.place(relx=0.5, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # Edit btn
