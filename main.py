@@ -324,4 +324,5 @@ class Aplication(Functions, Validation):
             self.valid_client_id), '%P')
 
 
-Aplication()
+if __name__ == "__main__":
+    Aplication()
