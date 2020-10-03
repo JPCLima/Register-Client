@@ -99,6 +99,37 @@ class Functions():
         self.clean_canvas()
         self.select_list()
 
+    def edit_client(self):
+        self.get_variables()
+        self.connect_db()
+
+        self.cursor.execute(""" 
+                                UPDATE clients 
+                                SET name_client = ?, phone_number=?, address=?, city=? WHERE id = ?  """,
+                            (self.name, self.phone, self.address, self.city, self.id))
+        self.conn.commit()
+
+        self.disconnect_db()
+        self.select_list()
+        self.clean_canvas()
+
+    def search_client(self):
+        self.connect_db()
+        self.listClients.delete(*self.listClients.get_children())
+        self.name_entry.insert(END, '%')
+        name = self.name_entry.get()
+
+        self.cursor.execute(""" 
+                                SELECT id, name_client, phone_number, address, city
+                                FROM clients WHERE name_client LIKE '%s' ORDER BY name_client ASC""" % name)
+
+        search_client_name = self.cursor.fetchall()
+        for i in search_client_name:
+            self.listClients.insert("", END, values=i)
+
+        self.clean_canvas()
+        self.disconnect_db()
+
 
 class Aplication(Functions):
 
@@ -140,9 +171,9 @@ class Aplication(Functions):
                              relheight=0.1)
 
         # Seach btn
-        self.btn_clean = Button(
-            self.frame_1, text=text_label[1], bd=2, font=BTN_FONT_NORMAL)
-        self.btn_clean.place(relx=0.3, rely=0.1, relwidth=0.1, relheight=0.1)
+        self.btn_search = Button(
+            self.frame_1, text=text_label[1], bd=2, font=BTN_FONT_NORMAL, command=self.search_client)
+        self.btn_search.place(relx=0.3, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # New btn
         self.btn_new = Button(
@@ -151,7 +182,7 @@ class Aplication(Functions):
 
         # Edit btn
         self.btn_edit = Button(
-            self.frame_1, text=text_label[3], bd=2,  font=BTN_FONT_NORMAL)
+            self.frame_1, text=text_label[3], bd=2,  font=BTN_FONT_NORMAL, command=self.edit_client)
         self.btn_edit.place(relx=0.6, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # Delete btn
