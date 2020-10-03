@@ -1,8 +1,9 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import tix
 import sqlite3
 
-root = Tk()
+root = tix.Tk()
 
 BG_COLOR = '#173F5F'
 FRAME_COLOR = '#E0DFD5'
@@ -174,6 +175,10 @@ class Aplication(Functions):
         self.btn_search = Button(
             self.frame_1, text=text_label[1], bd=2, font=BTN_FONT_NORMAL, command=self.search_client)
         self.btn_search.place(relx=0.3, rely=0.1, relwidth=0.1, relheight=0.1)
+        # Info msg
+        text_msg = "Please enter in the name field the client which you would like to search."
+        self.info_msg_search = tix.Balloon(self.frame_1)
+        self.info_msg_search.bind_widget(self.btn_search, balloonmsg=text_msg)
 
         # New btn
         self.btn_new = Button(
