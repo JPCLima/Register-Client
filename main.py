@@ -4,6 +4,9 @@ root = Tk()
 
 BG_COLOR = '#173F5F'
 FRAME_COLOR = '#E0DFD5'
+BTN_FONT_BOLD = ('Helvetica', 8, 'bold')
+BTN_FONT_NORMAL = ('Helvetica', 8)
+BTN_FONT_NORMAL = ('Helvetica', 8)
 
 
 class Aplication():
@@ -21,7 +24,7 @@ class Aplication():
         self.root.geometry("700x600")
         self.root.resizable(True, True)
         self.root.maxsize(width=900, height=700)
-        self.root.minsize(width=400, height=300)
+        self.root.minsize(width=600, height=400)
 
     def frame_window(self):
         # Frame 1
@@ -37,36 +40,44 @@ class Aplication():
                       'Delete', 'ID', 'Name', 'Phone number', 'Address', 'City']
 
         # Clean btn
-        self.btn_clean = Button(self.frame_1, text=text_label[0], bd=2)
+        self.btn_clean = Button(
+            self.frame_1, text=text_label[0], bd=2, font=BTN_FONT_NORMAL)
         self.btn_clean.place(relx=0.2, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # Seach btn
-        self.btn_clean = Button(self.frame_1, text=text_label[1], bd=2)
+        self.btn_clean = Button(
+            self.frame_1, text=text_label[1], bd=2, font=BTN_FONT_NORMAL)
         self.btn_clean.place(relx=0.3, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # New btn
-        self.btn_clean = Button(self.frame_1, text=text_label[2], bd=2)
+        self.btn_clean = Button(
+            self.frame_1, text=text_label[2], bd=2, font=BTN_FONT_BOLD)
         self.btn_clean.place(relx=0.5, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # Edit btn
-        self.btn_clean = Button(self.frame_1, text=text_label[3], bd=2)
+        self.btn_clean = Button(
+            self.frame_1, text=text_label[3], bd=2,  font=BTN_FONT_NORMAL)
         self.btn_clean.place(relx=0.6, rely=0.1, relwidth=0.1, relheight=0.1)
 
         # Delete btn
-        self.btn_clean = Button(self.frame_1, text=text_label[4], bd=2)
+        self.btn_clean = Button(
+            self.frame_1, text=text_label[4], bd=2, font=BTN_FONT_NORMAL)
         self.btn_clean.place(relx=0.7, rely=0.1, relwidth=0.1, relheight=0.1)
 
+        # Label and Entry
         # ID - label and entry
-        self.label_name = Label(self.frame_1, text=text_label[5])
-        self.label_name.place(relx=0.05, rely=0.0, relwidth=0.1)
+        self.label_name = Label(
+            self.frame_1, text=text_label[5], bg=FRAME_COLOR)
+        self.label_name.place(relx=0.01, rely=0.0, relwidth=0.1)
 
         self.name_entry = Entry(self.frame_1)
         self.name_entry.place(relx=0.05, rely=0.1,
                               relwidth=0.1)
 
         # Name - label and entry
-        self.label_name = Label(self.frame_1, text=text_label[6])
-        self.label_name.place(relx=0.05, rely=0.3,
+        self.label_name = Label(
+            self.frame_1, text=text_label[6], bg=FRAME_COLOR)
+        self.label_name.place(relx=0.028, rely=0.3,
                               relwidth=0.1)
 
         self.name_entry = Entry(self.frame_1)
@@ -74,8 +85,9 @@ class Aplication():
                               relwidth=0.7)
 
         # Phone - label and entry
-        self.label_name = Label(self.frame_1, text=text_label[7])
-        self.label_name.place(relx=0.8, rely=0.3,
+        self.label_name = Label(
+            self.frame_1, text=text_label[7], bg=FRAME_COLOR)
+        self.label_name.place(relx=0.789, rely=0.3,
                               relwidth=0.15)
 
         self.name_entry = Entry(self.frame_1)
@@ -83,8 +95,9 @@ class Aplication():
                               relwidth=0.15)
 
         # Address - label and entry
-        self.label_name = Label(self.frame_1, text=text_label[8])
-        self.label_name.place(relx=0.05, rely=0.5,
+        self.label_name = Label(
+            self.frame_1, text=text_label[8], bg=FRAME_COLOR)
+        self.label_name.place(relx=0.038, rely=0.5,
                               relwidth=0.1)
 
         self.name_entry = Entry(self.frame_1)
@@ -92,8 +105,9 @@ class Aplication():
                               relwidth=0.7)
 
         # City - label and entry
-        self.label_name = Label(self.frame_1, text=text_label[9])
-        self.label_name.place(relx=0.8, rely=0.5,
+        self.label_name = Label(
+            self.frame_1, text=text_label[9], bg=FRAME_COLOR)
+        self.label_name.place(relx=0.767, rely=0.5,
                               relwidth=0.1)
 
         self.name_entry = Entry(self.frame_1)
