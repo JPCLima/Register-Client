@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 
 root = Tk()
 
@@ -16,6 +17,7 @@ class Aplication():
         self.canvas()
         self.frame_window()
         self.widgets_frame1()
+        self.treen_view()
         root.mainloop()
 
     def canvas(self):
@@ -113,6 +115,36 @@ class Aplication():
         self.name_entry = Entry(self.frame_1)
         self.name_entry.place(relx=0.8, rely=0.6,
                               relwidth=0.15)
+
+    def treen_view(self):
+
+        self.listClients = ttk.Treeview(
+            self.frame_2, height=3, columns=('col1', 'col2', 'col3', 'col4', 'col5'))
+        # Create the haeders
+        self.listClients.heading('#0', text='')
+        self.listClients.heading('#1', text='ID')
+        self.listClients.heading('#2', text='Name')
+        self.listClients.heading('#3', text='Phone')
+        self.listClients.heading('#4', text='Address')
+        self.listClients.heading('#5', text='City')
+
+        # Create the With of each column
+        self.listClients.column("#0", width=1)
+        self.listClients.column("#1", width=50)
+        self.listClients.column("#2", width=100)
+        self.listClients.column("#3", width=100)
+        self.listClients.column("#4", width=100)
+        self.listClients.column("#4", width=100)
+        self.listClients.column("#5", width=100)
+
+        self.listClients.place(
+            relx=0.01, rely=0.1, relwidth=0.95, relheight=0.85)
+
+        # Create scroll_bar
+        self.scroll_bar = Scrollbar(self.frame_2, orient='vertical')
+        self.listClients.configure(yscroll=self.scroll_bar.set)
+        self.scroll_bar.place(relx=0.96, rely=0.1,
+                              relwidth=0.04, relheight=0.85)
 
 
 Aplication()
